@@ -47,12 +47,12 @@ class Resolver implements ResolverInterface
 
             $this->events->dispatch('module-bootstrapped:'.$bootstrapper::class, [$module]);
 
-            $this->bootstrappedModules[] = $module::class;
+            $this->bootstrappedModules[] = $module->getManifest()->getSignature();
         }
     }
 
     public function isBootstrapped(Module $module): bool
     {
-        return in_array($module::class, $this->bootstrappedModules, true);
+        return in_array($module->getManifest()->getSignature(), $this->bootstrappedModules, true);
     }
 }
